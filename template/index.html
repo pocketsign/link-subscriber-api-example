@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>外部連携機能 デモ</title>
+</head>
+<body>
+  <h1>外部連携機能 デモ</h1>
+  <ul>
+    <li> 名前: {{.Name}} </li>
+    <li> 誕生日: {{.BirthDate}} </li>
+    <li> 住所: {{.Address}} </li>
+    <li> 性別: {{.Gender}} </li>
+    <li> カスタムリソース: {{.Custom}} </li>
+  </ul>
+  <p>カスタムリソースの値を変更する</p>
+  <input type="text" id="custom_resource" name="custom_resource"/>
+  <input type="submit" id="submit" value="変更"/>
+  <br/>
+  <a href="/login">ログイン</a>
+  <br/>
+  <button onclick="location.href='/refresh'">トークンを更新して再取得</button>
+</html>
+<script>
+  let button = document.getElementById("submit");
+  button.addEventListener("click", function() {
+    let input = document.getElementById("custom_resource");
+    let value = input.value;
+    fetch("/update", {
+      method: "PUT",
+      body: JSON.stringify({value: value}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    location.reload();
+  });
+</script>
