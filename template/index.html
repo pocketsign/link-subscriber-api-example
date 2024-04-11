@@ -22,10 +22,10 @@
 </html>
 <script>
   let button = document.getElementById("submit");
-  button.addEventListener("click", function() {
+  button.addEventListener("click", async () => {
     let input = document.getElementById("custom_resource");
     let value = input.value;
-    fetch("/update", {
+    await fetch("/update", {
       method: "PUT",
       body: JSON.stringify({value: value}),
       headers: {
