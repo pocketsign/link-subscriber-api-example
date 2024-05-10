@@ -23,7 +23,7 @@ var errNotAuthenticated = errors.New("not authenticated")
 // カスタムリソース
 var customResourceID string
 
-var userAPIConnectClient linkv1connect.UserResourceServiceClient
+var subscriberAPIConnectClient linkv1connect.SubscriberServiceClient
 
 type handler struct {
 	conf     *oauth2.Config
@@ -46,8 +46,8 @@ func main() {
 
 	host := os.Getenv("OIDC_DEMO_HOST")
 
-	// ユーザーリソース取得APIのConnect Clientを初期化
-	userAPIConnectClient = linkv1connect.NewUserResourceServiceClient(
+	// Subscriber APIのConnect Clientを初期化
+	subscriberAPIConnectClient = linkv1connect.NewSubscriberServiceClient(
 		http.DefaultClient,
 		"https://api."+host,
 	)

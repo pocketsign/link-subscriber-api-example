@@ -13,14 +13,14 @@ import (
 
 // リソースの取得を行う
 func getUserResource(ctx context.Context, sess *sessions.Session, id string) (UserResource, error) {
-	req, err := setupRequest(connect.NewRequest(&linkv1.GetUserResourceRequest{
+	req, err := setupRequest(connect.NewRequest(&linkv1.SubscriberServiceGetUserResourceRequest{
 		ResourceId: id,
 	}), sess)
 	if err != nil {
 		return UserResource{}, err
 	}
 
-	resp, err := userAPIConnectClient.GetUserResource(ctx, req)
+	resp, err := subscriberAPIConnectClient.GetUserResource(ctx, req)
 	if err != nil {
 		return UserResource{}, err
 	}
@@ -30,7 +30,7 @@ func getUserResource(ctx context.Context, sess *sessions.Session, id string) (Us
 
 // リソースの更新を行う
 func putUserResource(ctx context.Context, sess *sessions.Session, id string, v UserResource) error {
-	req, err := setupRequest(connect.NewRequest(&linkv1.UpdateUserResourceRequest{
+	req, err := setupRequest(connect.NewRequest(&linkv1.SubscriberServiceUpdateUserResourceRequest{
 		ResourceId: id,
 		Value:      v.Value,
 	}), sess)
@@ -39,7 +39,7 @@ func putUserResource(ctx context.Context, sess *sessions.Session, id string, v U
 		return err
 	}
 
-	_, err = userAPIConnectClient.UpdateUserResource(ctx, req)
+	_, err = subscriberAPIConnectClient.UpdateUserResource(ctx, req)
 	if err != nil {
 		return err
 	}
