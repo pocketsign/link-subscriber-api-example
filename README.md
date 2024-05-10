@@ -1,1 +1,1 @@
-# link-external-integration-example
+# link-subscriber-api-example

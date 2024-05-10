@@ -1,4 +1,4 @@
-module github.com/pocketsign/oidc-demo
+module github.com/pocketsign/link-subscriber-api-example
 
 go 1.22.1
 

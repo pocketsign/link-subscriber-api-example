@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/sessions"
-	tmpl "github.com/pocketsign/oidc-demo/template"
+	tmpl "github.com/pocketsign/link-subscriber-api-example/template"
 )
 
 const (
