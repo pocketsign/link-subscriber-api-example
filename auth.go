@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/coreos/go-oidc/v3/oidc"
+	"golang.org/x/oauth2"
 )
 
 func (h *handler) handleRedirect(w http.ResponseWriter, r *http.Request) {
@@ -25,6 +26,26 @@ func (h *handler) handleRedirect(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, h.conf.AuthCodeURL(state), http.StatusFound)
+}
+
+func (h *handler) handleShortcut(w http.ResponseWriter, r *http.Request) {
+	state := randomString()
+
+	sess, err := h.store.Get(r, "oidc-session")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// セッションにstateを保存
+	sess.Values["state"] = state
+	if err := sess.Save(r, w); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// display=psappを付与してリダイレクト
+	http.Redirect(w, r, h.conf.AuthCodeURL(state, oauth2.SetAuthURLParam("display", "psapp")), http.StatusFound)
 }
 
 func (h *handler) handleCallback(w http.ResponseWriter, r *http.Request) {

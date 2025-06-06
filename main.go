@@ -86,6 +86,7 @@ func main() {
 	http.HandleFunc("/login", h.handleRedirect)
 	http.HandleFunc("/callback", h.handleCallback)
 	http.HandleFunc("/refresh", h.handleRefresh)
+	http.HandleFunc("/shortcut", h.handleShortcut)
 
 	// サーバーの起動
 	log.Fatal(http.ListenAndServe(":8080", nil))
